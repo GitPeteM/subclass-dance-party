@@ -50,3 +50,6 @@ makeDancer.prototype.step = function() {
   // it just schedules the next step
   setTimeout(this.step.bind(this), this.timeBetweenSteps);
 };
+
+
+///var Dist = Math.sqrt((obj2[Top] - obj1[Top])**2 + (obj2[Left] - obj1[Left])**2)
