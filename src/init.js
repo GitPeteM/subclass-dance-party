@@ -21,13 +21,37 @@ $(document).ready(function() {
     var dancerMakerFunction = window[dancerMakerFunctionName];
 
     // make a dancer with a random position
+    var top = Math.floor(Math.random() * ($("body").height() * .58 - $("body").height() * 0.426 + 1)) + ($("body").height() * 0.426);
+    var left = Math.floor(Math.random() * ($("body").width() * .9 - $("body").width() * 0 + 1)) + ($("body").width() * 0 + 1);
 
-    var dancer = new dancerMakerFunction(
-      $("body").height() * Math.random(),
-      $("body").width() * Math.random(),
-      Math.random() * 1000
-    );
+    var dancer = new dancerMakerFunction(top, left, Math.random() * 1000);
     $('body').append(dancer.$node);
+    window.dancers.push(dancer);
+  });
+
+  var leftOffset = 100;
+  var topOffset = 500;
+  var lastIndex = 0;
+  $('.lineUp').on('click', function(event) {
+    for (var i = lastIndex || 0; i < window.dancers.length; i++) {
+      //debugger;
+      if (leftOffset <= $("body").width() * .9) {
+        window.dancers[i].setPosition(topOffset, leftOffset);
+        leftOffset += 175;
+      }
+      if (leftOffset >= $("body").width() * .9) {
+
+        //debugger;
+        leftOffset = 50;
+
+        if (topOffset <= 750) {
+          //debugger
+          topOffset += 50;
+        }
+      }
+      lastIndex = i + 1;
+
+    }
   });
 });
 
