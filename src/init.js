@@ -1,5 +1,9 @@
 $(document).ready(function() {
   window.dancers = [];
+  window.cats = [];
+  var leftOffset = 100;
+  var topOffset = 500;
+  var lastIndex = 0;
 
   $('.addDancerButton').on('click', function(event) {
     /* This function sets up the click handlers for the create-dancer
@@ -21,17 +25,37 @@ $(document).ready(function() {
     var dancerMakerFunction = window[dancerMakerFunctionName];
 
     // make a dancer with a random position
-    var top = Math.floor(Math.random() * ($("body").height() * .58 - $("body").height() * 0.426 + 1)) + ($("body").height() * 0.426);
-    var left = Math.floor(Math.random() * ($("body").width() * .9 - $("body").width() * 0 + 1)) + ($("body").width() * 0 + 1);
-
+    // positions the dancers to not go above a certain height.
+    var top, left;
+    if (dancerMakerFunctionName !== 'makeVibinCat') {
+      top = Math.floor(Math.random() * ($("body").height() * .58 - $("body").height() * 0.426 + 1)) + ($("body").height() * 0.426);
+      left = Math.floor(Math.random() * ($("body").width() * .9 - $("body").width() * 0 + 1)) + ($("body").width() * 0 + 1);
+    } else {
+      top = Math.floor(Math.random() * ($("body").height() * 0.29)) + (1);
+      left = 0;
+    }
     var dancer = new dancerMakerFunction(top, left, Math.random() * 1000);
+    // console.log(dancer);
     $('body').append(dancer.$node);
-    window.dancers.push(dancer);
+    // if dancer is equal to makeVibinCat
+    if (dancerMakerFunctionName === 'makeVibinCat') {
+      window.cats.push(dancer);
+    } else {
+      window.dancers.push(dancer);
+    }
+    // window.dancers.push(dancer);
+    //sort dancers array by top pixel count from least to greatest
+    window.dancers.sort((x, y) => x.$node[0].attributeStyleMap.get('top').value - y.$node[0].attributeStyleMap.get('top').value);
+    //forEach Dancer, set the z index to equal its index in the dancers array
+    window.dancers.forEach((dancer, index) => {
+
+      dancer.$node[0].attributeStyleMap.set('z-index', parseInt(dancer.$node[0].attributeStyleMap.get('top').value)/ 10);
+      //dancer.$node[0].attributeStyleMap.set('id', dancer.$node[0].attributeStyleMap.get('top'));
+
+      //console.log('top:', (dancer.$node[0].attributeStyleMap.get('top').value/10) +'px', 'z-index:', dancer.$node[0].attributeStyleMap.get('z-index').value);
+    });
   });
 
-  var leftOffset = 100;
-  var topOffset = 500;
-  var lastIndex = 0;
   $('.lineUp').on('click', function(event) {
     for (var i = lastIndex || 0; i < window.dancers.length; i++) {
       //debugger;
@@ -53,5 +77,7 @@ $(document).ready(function() {
 
     }
   });
+
+
 });
 

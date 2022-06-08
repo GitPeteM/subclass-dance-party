@@ -26,3 +26,17 @@ body, a:link, a:visited, a:active{
 .dancer, .mrBean{
   position:absolute;
 }
+
+.discoball {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 7%;
+}
+
+.cat {
+  height: 50px;
+  width: auto;
+  position: relative;
+  /* transform: rotate(); */
+}
