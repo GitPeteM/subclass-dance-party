@@ -49,7 +49,7 @@ $(document).ready(function() {
     //forEach Dancer, set the z index to equal its index in the dancers array
     window.dancers.forEach((dancer, index) => {
 
-      dancer.$node[0].attributeStyleMap.set('z-index', parseInt(dancer.$node[0].attributeStyleMap.get('top').value)/ 10);
+      dancer.$node[0].attributeStyleMap.set('z-index', parseInt(parseInt(dancer.$node[0].attributeStyleMap.get('top').value) / 10));
       //dancer.$node[0].attributeStyleMap.set('id', dancer.$node[0].attributeStyleMap.get('top'));
 
       //console.log('top:', (dancer.$node[0].attributeStyleMap.get('top').value/10) +'px', 'z-index:', dancer.$node[0].attributeStyleMap.get('z-index').value);

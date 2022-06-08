@@ -9,7 +9,7 @@ var makeDancer = function(top, left, timeBetweenSteps) {
   this.timeBetweenSteps = timeBetweenSteps;
   this.top = top;
   this.animate = true;
-  this.scale = Math.abs(((($("body").height() * 0.36737692872887584) - this.top )) * 0.0033333333333333335);
+  this.scale = this.scale || Math.abs(((($("body").height() * 0.36737692872887584) - this.top )) * 0.0033333333333333335);
   this.$node.css({'transform': 'scale(' + this.scale + ')'});
   this.clicked = false;
 
@@ -79,7 +79,7 @@ makeDancer.prototype.pickUp = function(thiss) {
       }
       newStyle.left = e.clientX - 150 + 'px';
       newStyle.transform = 'scale(' + thiss.scale + ')';
-      newStyle['z-index'] = parseInt(newStyle.top);
+      newStyle['z-index'] = parseInt(newStyle.top / 10);
       thiss.$node.css(newStyle);
       // console.log('cursorX:', e.clientX, 'cursorY:', e.clientY, 'itemTop:', parseFloat(thiss.$node.css('top')), 'SCALE:', thiss.$node.css('transform'), thiss.scale);
     } else {
